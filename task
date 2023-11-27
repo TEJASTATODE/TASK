@@ -1,0 +1,55 @@
+nt  trigPin = 11;
+ int echoPin = 10;
+#include <Servo.h>
+
+int potPin = 9;
+int duration; //micro second
+float distance;
+int pos1 =100 ;
+int pos2 = 100;
+Servo myservo;
+
+void setup() {
+  
+  
+  
+  Serial.begin(9600);
+  pinMode(trigPin,OUTPUT);
+  pinMode(echoPin,INPUT);
+  myservo.attach(potPin);
+  myservo.write(pos1);
+  
+    
+}
+
+void loop() {
+  //generate pulse trigger
+  digitalWrite(trigPin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(2);
+  digitalWrite(trigPin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(echoPin,LOW);
+  delayMicroseconds(10);
+  //receive
+  
+  duration =  pulseIn(echoPin,HIGH);
+  distance = duration*0.343/2.;
+  //servo
+  if(distance>=11 & distance<=14);
+  for (int i=0;i<=pos2;i+=1){
+  myservo.write(i);
+  delay(15);
+  }
+  delay(400);
+  myservo.write(pos2);
+  delay(1000);
+  //print
+  Serial.print("Distance:");
+  Serial.print("distance");
+  Serial.print("cm");
+  
+  
+    
+}
